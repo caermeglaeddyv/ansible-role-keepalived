@@ -1,0 +1,26 @@
+---
+# defaults file for keepalived
+
+
+# Variable which is common for most projects, currently used
+# to name VRRP instance inside configureation file:
+keepalived_project_name: test
+
+# Variable which is common for most projects, currently not used in this one:
+keepalived_project_dir: files/{{ keepalived_project_name }}
+
+# Keepalived source files version to download and build from:
+keepalived_version: 2.0.19
+
+# If keepalived is used with HAProxy which listens VRRP instance,
+# enables checking if HAProxy process is alive or not:
+keepalived_haproxy_check_script: false
+
+# Virtual IP adddress which will fail over within cluster members:
+keepalived_vip_address: ""
+
+# Network interface for VRRP instance and to bind VIP on:
+keepalived_vrrp_interface: "{{ ansible_default_ipv4.interface }}"
+
+# Password to authentica between cluster members:
+keepalived_auth_pass: "12345"

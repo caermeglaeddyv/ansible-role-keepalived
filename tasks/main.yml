@@ -1,0 +1,68 @@
+---
+# tasks file for keepalived
+- name: create keepalived downloads directory
+  file:
+    path: "{{ keepalived_local_dir }}/keepalived/downloads/"
+    state: directory
+  delegate_to: localhost
+  connection: local
+  run_once: true
+  become: no
+
+- name: download keepalived source tarball
+  get_url:
+    url: https://www.keepalived.org/software/keepalived-{{ keepalived_version }}.tar.gz
+    dest: files/keepalived/downloads/
+  delegate_to: localhost
+  connection: local
+  run_once: true
+  become: no
+
+- name: unpack keepalived source tarball
+  unarchive:
+    src: files/keepalived/downloads/keepalived-{{ keepalived_version }}.tar.gz
+    dest: $HOME
+
+- name: install keepalived build dependencies
+  yum:
+    name:
+    - psmisc
+    - gcc
+    - openssl-devel
+    - libnl3-devel
+    state: present
+
+- name: configure and build keepalived from source
+  shell: |
+    ./configure --prefix=/usr/ --sysconfdir=/etc/ \
+    && /bin/make \
+    && /bin/make install
+  args:
+    chdir: $HOME/keepalived-{{ keepalived_version }}
+
+- name: copy keepalived config
+  template:
+    src: etc_keepalived_keepalived.conf.j2
+    dest: /etc/keepalived/keepalived.conf
+    mode: 0644
+
+- name: start keepalived
+  systemd:
+    daemon_reload: yes
+    name: keepalived
+    enabled: yes
+    state: started
+
+- name: delete unneded keepalived files from remote
+  file:
+    path: $HOME/keepalived-{{ keepalived_version }}
+    state: absent
+
+- name: uninstall keepalived build dependencies
+  yum:
+    name:
+    - gcc
+    - openssl-devel
+    - libnl3-devel
+    state: absent
+    autoremove: yes

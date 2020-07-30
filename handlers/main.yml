@@ -1,0 +1,19 @@
+---
+# handlers file for keepalived
+- name: start keepalived
+  systemd:
+    daemon_reload: yes
+    name: keepalived
+    state: started
+
+- name: stop keepalived
+  systemd:
+    daemon_reload: yes
+    name: keepalived
+    state: stopped
+
+- name: restart keepalived
+  systemd:
+    daemon_reload: yes
+    name: keepalived
+    state: restarted
