@@ -1,4 +1,4 @@
-Keepalived
+Ansible role: Keepalived
 =========
 
 This role is used to install keepalived by building it from source code.
