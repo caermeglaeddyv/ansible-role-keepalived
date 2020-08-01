@@ -9,7 +9,7 @@
 keepalived_project_name: test
 
 # Localhost directory used to keep downloaded source files:
-keepalived_local_dir: files/{{ keepalived_project_name }}
+keepalived_local_dir: files
 
 # Keepalived source files version to download and build from:
 keepalived_version: 2.0.19

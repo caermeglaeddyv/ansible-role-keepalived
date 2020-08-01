@@ -12,7 +12,7 @@
 - name: download keepalived source tarball
   get_url:
     url: https://www.keepalived.org/software/keepalived-{{ keepalived_version }}.tar.gz
-    dest: files/keepalived/downloads/
+    dest: "{{ keepalived_local_dir }}/keepalived/downloads/"
   delegate_to: localhost
   connection: local
   run_once: true
