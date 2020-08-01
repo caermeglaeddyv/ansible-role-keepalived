@@ -2,12 +2,14 @@
 # defaults file for keepalived
 
 
-# Variable which is common for most projects, currently used
-# to name VRRP instance inside configureation file:
+# Variable which is common for most projects, used in
+# configuration files or file/directory names.
+# By default used as reference for keepalived_project_dir variable.
+# Currently used to name VRRP instance inside configureation file:
 keepalived_project_name: test
 
-# Variable which is common for most projects, currently not used in this one:
-keepalived_project_dir: files/{{ keepalived_project_name }}
+# Localhost directory used to keep downloaded source files:
+keepalived_local_dir: files/{{ keepalived_project_name }}
 
 # Keepalived source files version to download and build from:
 keepalived_version: 2.0.19
