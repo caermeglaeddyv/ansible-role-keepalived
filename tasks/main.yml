@@ -20,7 +20,7 @@
 
 - name: unpack keepalived source tarball
   unarchive:
-    src: files/keepalived/downloads/keepalived-{{ keepalived_version }}.tar.gz
+    src: "{{ keepalived_local_dir }}/keepalived/downloads/keepalived-{{ keepalived_version }}.tar.gz"
     dest: $HOME
 
 - name: install keepalived build dependencies
